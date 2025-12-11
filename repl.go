@@ -9,3 +9,5 @@ func cleanInput(text string) []string {
 	words := strings.Fields(output)
 	return words
 }
+
+//edit
