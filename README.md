@@ -1,3 +1,3 @@
 Pokedex Boot.dev project
 edit1
-edit
+edit1
