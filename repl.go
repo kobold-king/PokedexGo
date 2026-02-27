@@ -5,9 +5,17 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"PokedexGo/internal/pokeapi"
 )
 
-func startRepl() {
+type config struct {
+	pokeapiClient    pokeapi.Client
+	nextURL *string
+	prevURL *string
+}
+
+func startRepl(cfg *config) {
 	// 1. Create a scanner to wait for user input from Standard Input
 	scanner := bufio.NewScanner(os.Stdin)
 	// 2. Start an infinite for loop for the REPL
@@ -26,8 +34,20 @@ func startRepl() {
 			continue
 		}
 		// 6. Capture the first word and print it
-		command := cleaned[0]
-		fmt.Printf("Your command was: %s\n", command)
+		commandinput := cleaned[0]
+
+		// Check to see if the inputted command exists
+		command, exists := getCommands()[commandinput]
+		if exists {
+			err := command.callback(cfg)
+			if err != nil {
+				fmt.Println(err)
+			}
+			continue
+		} else {
+			fmt.Println("Unknown command")
+			continue
+		}
 	}
 }
 
@@ -37,4 +57,39 @@ func cleanInput(text string) []string {
 	return words
 }
 
-//edit2
+// Command structure
+type cliCommand struct {
+	name        string
+	description string
+	callback    func(*config) error
+}
+
+func getCommands() map[string]cliCommand {
+	return map[string]cliCommand{
+		"help": {
+			name:        "help",
+			description: "Displays a help message",
+			callback:    commandHelp,
+		},
+		"exit": {
+			name:        "exit",
+			description: "Exit the Pokedex",
+			callback:    commandExit,
+		},
+		"map": {
+			name:        "map",
+			description: "Get the next page of locations",
+			callback:    commandMapf,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Get the previous page of locations",
+			callback:    commandMapb,
+		//custom clicomman for practice
+		"banana": {
+			name:        "banana",
+			description: "Posts a banana",
+			callback:    commandBanana,
+		},
+	}
+}
