@@ -13,7 +13,12 @@ func (c *Client) ReadWriteLocations(url *string) (Locations, error) {
 		newURL = *url
 	}
 	// 1. Send the Get request
-	resp, err := http.Get(newURL)
+	req, err := http.NewRequest("GET", newURL, nil)
+	if err != nil {
+		return Locations{}, err
+	}
+
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return Locations{}, err
 	}

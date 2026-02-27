@@ -6,13 +6,13 @@ import (
 	"os"
 	"strings"
 
-	"PokedexGo/internal/pokeapi"
+	"github.com/kobold-king/PokedexGo/internal/pokeapi"
 )
 
 type config struct {
-	pokeapiClient    pokeapi.Client
-	nextURL *string
-	prevURL *string
+	pokeapiClient pokeapi.Client
+	nextURL       *string
+	prevURL       *string
 }
 
 func startRepl(cfg *config) {
@@ -85,6 +85,7 @@ func getCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "Get the previous page of locations",
 			callback:    commandMapb,
+		},
 		//custom clicomman for practice
 		"banana": {
 			name:        "banana",
