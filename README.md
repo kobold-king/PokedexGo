@@ -1,3 +1,3 @@
 Pokedex Boot.dev project
 edit2222
-oijjdsadasdaff wil finish eventually
+oijjdsadasdaff wil finish eventuallynnn
