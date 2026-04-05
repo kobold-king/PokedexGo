@@ -29,7 +29,7 @@ func commandMapb(cfg *config) error {
 	if err != nil {
 		return err
 	}
-	//set the next and prev in cfg from daa recieved from jsonnn
+	//set the next and prev in cfg from daa recieved from jsonnnn
 	cfg.nextURL = locationResp.Next
 	cfg.prevURL = locationResp.Previous
 
