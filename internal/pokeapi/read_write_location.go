@@ -12,6 +12,7 @@ func (c *Client) ReadWriteLocations(url *string) (Locations, error) {
 	if url != nil {
 		newURL = *url
 	}
+
 	// 1. Send the Get request
 	req, err := http.NewRequest("GET", newURL, nil)
 	if err != nil {
@@ -36,7 +37,7 @@ func (c *Client) ReadWriteLocations(url *string) (Locations, error) {
 		return Locations{}, err
 	}
 
-	//put into stuct
+	//put into stuctt
 	locationsResp := Locations{}
 	err = json.Unmarshal(body, &locationsResp)
 	if err != nil {
